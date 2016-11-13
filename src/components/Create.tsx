@@ -1,24 +1,31 @@
 import * as React from 'react'
+declare var require: Function
+const QRCode = require('qrcode.react')
+import hunt = require('bitcoin-treasure-hunt')
 
-class Create extends React.Component<{}, any> {
+
+class Create extends React.Component<{}, { funding: hunt.Funding }> {
   constructor(props: any) {
     super(props)
-    this.state = {}
+    this.state = {
+      funding: null,
+    }
   }
 
   componentWillMount() {
-    if (!this.state.fundingAddress) {
+    if (!this.state.funding) {
+      const funding = hunt.createFunding()
       this.setState({
-        fundingAddress: 'dummy-funding-address',
-        fundingPrivateKey: 'dummy-funding-private-key',
+        funding: funding
       })
+
+      // await hunt.waitForTransaction(funding.address)
     }
   }
 
   render() {
     return <div>
       <h1>Create treasure hunt</h1>
-      {this.state.fundingAddress}
       <div
         className="form-group"
       >
@@ -38,6 +45,11 @@ class Create extends React.Component<{}, any> {
         >
           We'll never share your email with anyone else.
         </small>
+      </div>
+      <div>
+        <QRCode 
+          value={this.state.funding.address.toString()} 
+        />
       </div>
       <button
         className="btn btn-defult"
