@@ -13,6 +13,7 @@ interface RedeemState {
   tokens: any[]
   address: string
   requiredTokens: number
+  redeemed: boolean
 }
 
 class Redeem extends React.Component<{}, RedeemState> {
@@ -25,6 +26,7 @@ class Redeem extends React.Component<{}, RedeemState> {
       publicKeys: [],
       tokens: [],
       address: 'n49hbHgynpRK3eZdas1p52DCt8bHrY51oD',
+      redeemed: false,
     }
   }
 
@@ -38,7 +40,11 @@ class Redeem extends React.Component<{}, RedeemState> {
         publicKeys: this.state.publicKeys,
         tokens: this.state.tokens,
         address: this.state.address,
-      }).then(_ => console.log('redeemed'))
+      }).then(() => {
+        this.setState(prevState => _.assign({}, prevState, {
+          redeemed: true,
+        }))
+      })
     }
   }
 
@@ -82,6 +88,7 @@ class Redeem extends React.Component<{}, RedeemState> {
     return <div>
       <h1>Redeem</h1>
       <h2>{this.state.tokens.length}/{this.state.requiredTokens == 100 ? '?' : this.state.requiredTokens} tokens left</h2>
+      { this.state.redeemed ? <div>Redeemed!</div> : null }
       <div
         className="form-group"
       >
