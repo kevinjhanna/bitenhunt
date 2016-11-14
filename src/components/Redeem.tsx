@@ -14,6 +14,7 @@ interface RedeemState {
   address: string
   requiredTokens: number
   redeemed: boolean
+  failed: boolean
 }
 
 class Redeem extends React.Component<{}, RedeemState> {
@@ -27,6 +28,7 @@ class Redeem extends React.Component<{}, RedeemState> {
       tokens: [],
       address: 'n49hbHgynpRK3eZdas1p52DCt8bHrY51oD',
       redeemed: false,
+      failed: false,
     }
   }
 
@@ -69,6 +71,9 @@ class Redeem extends React.Component<{}, RedeemState> {
           }), this.reedem)
 
         } else {
+          this.setState(prevState => _.assign({}, prevState, {
+            failed: true,
+          }))
           console.log(err)
         }
       }
@@ -105,6 +110,7 @@ class Redeem extends React.Component<{}, RedeemState> {
           value={this.state.address}
         />
       </div>
+      { this.state.failed ? <div className="alert alert-danger">Can't process QR</div> : null }
       <input 
         type="file" 
         name="image" 
