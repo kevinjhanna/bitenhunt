@@ -59,7 +59,7 @@ class Redeem extends React.Component<{}, RedeemState> {
             amount: content.amount,
             publicKeys: publicKeys,
             tokens: this.state.tokens.concat(newToken),
-            requiredtokens: content.requiredTokens,
+            requiredTokens: content.requiredTokens,
           }), this.reedem)
 
         } else {

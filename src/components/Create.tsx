@@ -101,13 +101,15 @@ class Create extends React.Component<{}, { totalTokens: number, requiredTokens: 
               key={token}
             >
               {token}
-              <div>
-              </div>
+              <div
+               style={{padding: 40}}
+              >
               <QRCode 
-                size={600}
+                size={300}
                 level="L"
                 value={token} 
               />
+              </div>
             </div>
           })
         }</div>
