@@ -74,18 +74,40 @@ class Create extends React.Component<{}, { totalTokens: number, requiredTokens: 
     switch(this.state.phase) {
       case 'funding':
         element = <div>
-          Required
-          <input
-            type="number"
-            value={this.state.requiredTokens}
-            onChange={ev => this.handleRequiredTokensChange(parseInt((ev.target as HTMLInputElement).value))}
-          />
-          Total
-          <input
-            type="number"
-            value={this.state.totalTokens}
-            onChange={ev => this.handleTotalTokensChange(parseInt((ev.target as HTMLInputElement).value))}
-          />
+          <div
+            className="form-group"
+          >
+            <label
+              htmlFor="required"
+            >
+            Required tokens
+            </label>
+            <input 
+              className="form-control" 
+              id="required"
+              type="number"
+              value={this.state.requiredTokens}
+              onChange={ev => this.handleRequiredTokensChange(parseInt((ev.target as HTMLInputElement).value))}
+            />
+          </div>
+
+          <div
+            className="form-group"
+          >
+            <label
+              htmlFor="total"
+            >
+            Total tokens
+            </label>
+            <input 
+              className="form-control" 
+              id="required"
+              type="number"
+              value={this.state.totalTokens}
+              onChange={ev => this.handleTotalTokensChange(parseInt((ev.target as HTMLInputElement).value))}
+            />
+          </div>
+
           <QRCode 
             value={this.state.funding.address.toString()} 
             level="H"
@@ -118,12 +140,9 @@ class Create extends React.Component<{}, { totalTokens: number, requiredTokens: 
 
     return <div>
       <h1>Create treasure hunt</h1>
+      <div>
       {element}
-      <button
-        className="btn btn-defult"
-      >
-        Create
-      </button>
+      </div>
     </div>
   }
 }

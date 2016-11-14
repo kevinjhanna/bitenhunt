@@ -81,6 +81,7 @@ class Redeem extends React.Component<{}, RedeemState> {
   render() {
     return <div>
       <h1>Redeem</h1>
+      <h2>{this.state.tokens.length}/{this.state.requiredTokens == 100 ? '?' : this.state.requiredTokens} tokens left</h2>
       <div
         className="form-group"
       >
