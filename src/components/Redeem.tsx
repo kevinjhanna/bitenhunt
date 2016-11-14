@@ -12,12 +12,14 @@ interface RedeemState {
   publicKeys: any[]
   tokens: any[]
   address: string
+  requiredTokens: number
 }
 
 class Redeem extends React.Component<{}, RedeemState> {
   componentWillMount() {
     this.state = {
       amount: 0,
+      requiredTokens: 100,
       transactionId: '',
       prizeAddress: '',
       publicKeys: [],
@@ -27,8 +29,8 @@ class Redeem extends React.Component<{}, RedeemState> {
   }
 
   reedem() {
-      console.log(this.state)
-    if (this.state.tokens.length == 2) {
+    console.log(this.state)
+    if (this.state.tokens.length == this.state.requiredTokens) {
       hunt.redeem({
         transactionId: this.state.transactionId,
         prizeAddress: this.state.prizeAddress,
@@ -46,7 +48,7 @@ class Redeem extends React.Component<{}, RedeemState> {
       const qr = new qrReader()
       qr.callback = (result: string, err: any) => {
         if(result){
-          const content  = JSON.parse(atob(result))
+          const content  = JSON.parse(result)
 
           const newToken = bitcore.PrivateKey.fromWIF(content.token)
           const publicKeys = content.publicKeys.map((publicKey: any) => bitcore.PublicKey(publicKey))
@@ -57,6 +59,7 @@ class Redeem extends React.Component<{}, RedeemState> {
             amount: content.amount,
             publicKeys: publicKeys,
             tokens: this.state.tokens.concat(newToken),
+            requiredtokens: content.requiredTokens,
           }), this.reedem)
 
         } else {
