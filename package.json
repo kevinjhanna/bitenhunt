@@ -30,6 +30,7 @@
     "@types/react-dom": "^0.14.18",
     "@types/react-router": "^2.0.38",
     "bitcoin-treasure-hunt": "git+https://github.com/kevinjhanna/bitcoin-treasure-hunt.git",
+    "qrcode-reader": "^0.2.2",
     "qrcode.react": "^0.6.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
